@@ -320,7 +320,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("get_limit")]
-        public int GetLimit { get; set; } 
+        public int GetLimit { get; set; }
 
         /// <summary>
         /// 否bool卡券领取页面是否可分享，默认为true
@@ -363,17 +363,21 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         /// <summary>
         /// 先调用上传图片接口将背景图上传至CDN，否则报错，卡面设计请遵循微信会员卡自定义背景设计规范  ,像素大小控制在1000像素*600像素以下
+        /// 修改：是，不需要提审
         /// </summary>
         [MaxLength(128)]
         [JsonProperty("background_pic_url")]
         public string BackgroundPicUrl { get; set; }
 
-
+        /// <summary>
+        /// 基础信息
+        /// </summary>
         [JsonProperty("base_info")]
         public MemberBaseInfo Baseinfo { get; set; }
 
         /// <summary>
         /// 会员卡特权说明。  
+        /// 修改：是，不需要提审
         /// </summary>
         [MaxLength(3072)]
         [Required]
@@ -383,18 +387,21 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         /// <summary>
         ///  否 bool 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口，详情见自动激活。 
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("auto_activate")]
         public bool AutoActivate { get; set; }
 
         /// <summary>
         ///  否 bool 设置为true时会员卡支持一键开卡，不允许同时传入activate_url字段，否则设置wx_activate失效。填入该字段后仍需调用接口设置开卡项方可生效，详情见一键开卡。 
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("wx_activate")]
         public bool WxActivate { get; set; }
 
         /// <summary>
         /// 是 显示积分，填写true或false，如填写true，积分相关字段均为必填。
+        /// 修改：是，需要提审
         /// </summary>
         [Required]
         [JsonRequired]
@@ -408,7 +415,8 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         public string BonusUrl { get; set; }
 
         /// <summary>
-        /// 是 bool 是否支持储值，填写true或false。如填写true，储值相关字段均为必填。    
+        /// 是 bool 是否支持储值，填写true或false。如填写true，储值相关字段均为必填。 
+        /// 修改：是，需要提审
         /// </summary>
         [Required]
         [JsonRequired]
@@ -424,24 +432,28 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示,包含name_type(name)和url字段  
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("custom_field1")]
         public CustomField CustomField1 { get; set; }
 
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示,包含name_type(name)和url字段  
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("custom_field2")]
         public CustomField CustomField2 { get; set; }
 
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示,包含name_type(name)和url字段  
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("custom_field3")]
         public CustomField CustomField3 { get; set; }
 
         /// <summary>
         ///  是 string（128） 激活会员卡的url。 
+        /// 修改：是，不需要提审
         /// </summary>
         [MaxLength(128)]
         [Required]
@@ -451,18 +463,21 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示。
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("custom_cell1")]
         public CustomCell CustomCell1 { get; set; }
 
         /// <summary>
         /// 积分规则
+        /// 修改：是，不需要提审
         /// </summary>
         [JsonProperty("bonus_rule")]
         public BonusRule BonusRules { get; set; }
 
         /// <summary>
         /// 否 int 折扣，该会员卡享受的折扣优惠,填10就是九折。    
+        /// 修改：是，需要提审
         /// </summary>
         [JsonProperty("discount")]
         public int Discount { get; set; }

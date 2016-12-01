@@ -102,7 +102,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         {
             return JsonConvert.DeserializeObject<MemberCard>(cardInfoJson, new MemberCardCustomConverter(), new DateInfoCustomConverter());
         }
-        #endregion
+        #endregion 
 
         #region ÃÌº”ª·‘±ø®
         /// <summary>
