@@ -68,10 +68,11 @@
     <Compile Include="Apis\Card\Converter\MemberCardCustomConverter.cs" />
     <Compile Include="Apis\Card\CustomCell.cs" />
     <Compile Include="Apis\Card\CustomField.cs" />
-    <Compile Include="Apis\Card\Enum\CommonFieldTypes.cs" />
-    <Compile Include="Apis\Card\Enum\NameTypes.cs" />
-    <Compile Include="Apis\Card\Enum\RichFieldTypes.cs" />
-    <Compile Include="Apis\Card\Enum\UserCardStatus.cs" />
+    <Compile Include="Apis\Card\Enums\CommonFieldTypes.cs" />
+    <Compile Include="Apis\Card\Enums\NameTypes.cs" />
+    <Compile Include="Apis\Card\Enums\RichFieldTypes.cs" />
+    <Compile Include="Apis\Card\Enums\SceneTypes.cs" />
+    <Compile Include="Apis\Card\Enums\UserCardStatus.cs" />
     <Compile Include="Apis\Card\MemberCardInfo.cs" />
     <Compile Include="Apis\Card\NameUrls.cs" />
     <Compile Include="Apis\Card\NotifyOptional.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Apis\Card\Request\ActivateMemberCardRequest.cs" />
     <Compile Include="Apis\Card\Request\ActivateMemberTempInfoRequest.cs" />
     <Compile Include="Apis\Card\Request\ActivateMemberUserformRequest.cs" />
+    <Compile Include="Apis\Card\Request\AddPayGiftMemberRequest.cs" />
     <Compile Include="Apis\Card\Request\CreareQRCodeRequest.cs" />
     <Compile Include="Apis\Card\Request\CreateLandingPageRequest.cs" />
     <Compile Include="Apis\Card\Request\GetUserInfoRequest.cs" />
@@ -88,10 +90,13 @@
     <Compile Include="Apis\Card\RequiredForm.cs" />
     <Compile Include="Apis\Card\Result\ActivateMemberTempInfoResult.cs" />
     <Compile Include="Apis\Card\Result\ActivateRequest.cs" />
+    <Compile Include="Apis\Card\Result\CardBizuinInfoResult.cs" />
+    <Compile Include="Apis\Card\Result\CodeStatusResult.cs" />
     <Compile Include="Apis\Card\Result\CreateLandingPageResult.cs" />
     <Compile Include="Apis\Card\Result\CreateQRCodeResult.cs" />
     <Compile Include="Apis\Card\Result\DepositResult.cs" />
     <Compile Include="Apis\Card\Result\GetUserInfoResult.cs" />
+    <Compile Include="Apis\Card\Result\PayGiftMemberResult.cs" />
     <Compile Include="Apis\Card\Result\UpdateUserResult.cs" />
     <Compile Include="Apis\Card\Result\UploadImageApiResult.cs" />
     <Compile Include="Apis\Card\RichField.cs" />
