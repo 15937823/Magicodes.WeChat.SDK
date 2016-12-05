@@ -328,7 +328,7 @@ namespace Magicodes.WeChat.SDK.Test.Api
                 UpdateCardRequest cardInfo = new UpdateCardRequest()
                 {
                     CardId = "pl0uwwcE4vUB77uvUdo0G5Ir32Sw",
-                    UpdateCard = new MemberCardUpdate()
+                    MemberCard = new MemberCardUpdate()
                     {
                         Background_pic_url = result.Url,
                         UpdateBaseInfo = new UpdateBaseInfo()
