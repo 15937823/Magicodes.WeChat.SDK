@@ -9,6 +9,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 {
     public enum RichFieldTypes
     {
+
         /// <summary>
         /// 自定义单选
         /// </summary>

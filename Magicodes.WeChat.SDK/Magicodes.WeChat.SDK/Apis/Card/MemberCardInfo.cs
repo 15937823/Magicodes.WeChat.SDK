@@ -354,6 +354,23 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             get;
             set;
         }
+
+        /// <summary>
+        /// 微信支付刷卡
+        /// </summary>
+        [JsonProperty("pay_info")]
+        public PayInfo PayInfo { get; set; }
+    }
+
+    public class PayInfo
+    {
+        [JsonProperty("swipe_card")]
+        public SwipeCard SwipeCard { get; set; }
+    }
+    public class SwipeCard
+    {
+        [JsonProperty("is_swipe_card")]
+        public bool IsSwipeCard { get; set; }
     }
     #endregion
 
@@ -384,6 +401,14 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         [JsonRequired]
         [JsonProperty("prerogative")]
         public string Prerogative { get; set; }
+
+        /// <summary>
+        /// 填入该字段后，自定义code卡券方可进行导入code并投放的动作。
+        /// </summary>
+        [JsonProperty("get_custom_code_mode")]
+        public string GetCustomCodeMode { get; set; }
+
+
 
         /// <summary>
         ///  否 bool 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口，详情见自动激活。 

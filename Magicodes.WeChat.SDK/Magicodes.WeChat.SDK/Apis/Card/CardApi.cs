@@ -75,7 +75,6 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         #endregion
 
-
         #region 上传图片
         /// <summary>
         ///     上传卡券图片
@@ -220,13 +219,172 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         #endregion
 
         #region 更新会员卡信息
-        public void UpdateCard()
+        public ApiResult UpdateMemberCard(UpdateCardRequest model)
         {
+            var url = GetAccessApiUrl("update", ApiName, "https://api.weixin.qq.com");
+            var result = Post<ApiResult>(url, model);
+            return result;
 
         }
         #endregion
 
+        /// <summary>
+        /// 设置开卡字段接口
+        /// 开发者在创建时填入wx_activate字段后，需要调用该接口设置用户激活时需要填写的选项，否则一键开卡设置不生效。
+        /// </summary>
+        /// <returns></returns>
+        public ApiResult ActivateUserForm()
+        {
+            var url = GetAccessApiUrl("activateuserform/set", "card/membercard", "https://api.weixin.qq.com");
+            var result = Post<ApiResult>(url, "");
+            return result;
+        }
+        /// <summary>
+        /// 接口激活
+        /// 接口激活通常需要开发者开发用户填写资料的网页。通常有两种激活流程：
+        /// 1. 用户必须在填写资料后才能领卡，领卡后开发者调用激活接口为用户激活会员卡；
+        /// 2. 是用户可以先领取会员卡，点击激活会员卡跳转至开发者设置的资料填写页面，填写完成后开发者调用激活接口为用户激活会员卡。
+        /// </summary>
+        /// <returns></returns>
+        public ApiResult Activate(ActivateRequest model)
+        {
+            var url = GetAccessApiUrl("activate", "card/membercard", "https://api.weixin.qq.com");
+            var result = Post<ApiResult>(url, model);
+            return result;
+        }
+        #endregion
 
+        #region 自定义Code
+        /// <summary>
+        /// 导入自定义CODE
+        /// 1）单次调用接口传入code的数量上限为100个。
+        /// 2）每一个 code 均不能为空串。
+        /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
+        /// 4）导入失败支持重复导入，提示成功为止。
+        /// </summary>
+        /// <param name="cardId">卡卷编码</param>
+        /// <param name="codeList">自定义Code列表</param>
+        /// <returns></returns>
+        public DepositCustomCodeResult DepositCustomCode(string cardId, List<string> codeList)
+        {
+            var url = GetAccessApiUrl("deposit", "card/code", "https://api.weixin.qq.com");
+            var data = new
+            {
+                card_id = cardId,
+                code = codeList
+            };
+            var result = Post<DepositCustomCodeResult>(url, data);
+            return result;
+        }
+
+        /// <summary>
+        /// 查询导入code数目接口,查询code导入微信后台成功的数目。
+        /// </summary>
+        /// <returns></returns>
+        public GetDepositCountResult GetDepositCount(string cardId)
+        {
+            var url = GetAccessApiUrl("getdepositcount", "card/code", "https://api.weixin.qq.com");
+            var data = new
+            {
+                card_id = cardId,
+            };
+            var result = Post<GetDepositCountResult>(url, data);
+            return result;
+        }
+
+        /// <summary>
+        /// 为了避免出现导入差错，强烈建议开发者在查询完code数目的时候核查code接口校验code导入微信后台的情况。
+        /// </summary>
+        /// <param name="cardId">进行导入code的卡券ID</param>
+        /// <param name="codeList">已经导入微信卡券后台的自定义code，上限为100个。</param>
+        /// <returns></returns>
+        public CheckCodeResult CheckCode(string cardId, List<string> codeList)
+        {
+            var url = GetAccessApiUrl("checkcode", "card/code", "https://api.weixin.qq.com");
+            var data = new
+            {
+                card_id = cardId,
+                code = codeList
+            };
+            var result = Post<CheckCodeResult>(url, data);
+            return result;
+        }
+
+        #endregion
+
+        #region 修改卡券库存
+        /// <summary>
+        /// 修改卡券库存
+        /// </summary>
+        /// <returns></returns>
+        public ApiResult ModifyStock(ModifyStockRequest model)
+        {
+            var url = GetAccessApiUrl("modifystock", ApiName, "https://api.weixin.qq.com");
+            var result = Post<ApiResult>(url, model);
+            return result;
+        }
+        #endregion
+
+        #region 删除卡券
+        /// <summary>
+        /// 删除卡券
+        /// </summary>
+        public ApiResult Delete(string cardId)
+        {
+            var url = GetAccessApiUrl("delete", ApiName, "https://api.weixin.qq.com");
+            var data = new
+            {
+                card_id = cardId
+            };
+            var result = Post<ApiResult>(url, data);
+            return result;
+        }
+        #endregion
+
+        #region 设置卡券失效接口
+        /// <summary>
+        /// 设置卡券失效接口
+        /// 为满足改票、退款等异常情况，可调用卡券失效接口将用户的卡券设置为失效状态。 
+        /// 1.设置卡券失效的操作不可逆，即无法将设置为失效的卡券调回有效状态，商家须慎重调用该接口。
+        /// 2.商户调用失效接口前须与顾客事先告知并取得同意，否则因此带来的顾客投诉，微信将会按照《微信运营处罚规则》进行处罚。
+        /// </summary>
+        /// <param name="cardId">会员卡编码，非自定义Code可以不填</param>
+        /// <param name="code">会员卡Code</param>
+        /// <returns></returns>
+        public ApiResult Unavailable(string code, string cardId = null)
+        {
+            var url = GetAccessApiUrl("unavailable", "card/code", "https://api.weixin.qq.com");
+            var data = new
+            {
+                card_id = cardId,
+                code = code
+            };
+            var result = Post<ApiResult>(url, data);
+            return result;
+        }
+        #endregion
+
+        #region 投放卡券
+        /// <summary>
+        /// 创建二维码接口
+        /// </summary>
+        public CreateQRCodeResult CreateQRCode(CreareQRCodeRequest model)
+        {
+            var url = GetAccessApiUrl("create", "card/qrcode", "https://api.weixin.qq.com");
+            var result = Post<CreateQRCodeResult>(url, model);
+            return result;
+        }
+        /// <summary>
+        /// 卡券货架支持开发者通过调用接口生成一个卡券领取H5页面，并获取页面链接，进行卡券投放动作。
+        /// 目前卡券货架仅支持非自定义code的卡券，自定义code的卡券需先调用导入code接口将code导入才能正常使用。
+        /// 创建货架时需填写投放路径的场景字段
+        /// </summary>
+        public CreateLandingPageResult CreateLandingPage(CreateLandingPageRequest model)
+        {
+            var url = GetAccessApiUrl("create", "card/landingpage", "https://api.weixin.qq.com");
+            var result = Post<CreateLandingPageResult>(url, model);
+            return result;
+        }
 
         #endregion
     }
