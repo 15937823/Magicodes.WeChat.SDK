@@ -123,7 +123,6 @@ namespace Magicodes.WeChat.SDK.Apis.Card
 
         #endregion
 
-        #region 卡券查询
         /// <summary>
         /// 批量查询卡券列表
         /// </summary>
@@ -131,7 +130,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// <param name="offSet">查询卡列表的起始偏移量，从0开始，即offset: 5是指从从列表里的第六个开始读取。</param>
         /// <param name="count">需要查询的卡片的数量（数量最大50）。</param>
         /// <returns></returns>
-        public ApiResult GetBatchCardList(List<string> statusList, int offSet = 0, int count = 50)
+        public GetBatchCardListResult GetBatchCardList(List<string> statusList = null, int offSet = 0, int count = 50)
         {
             //获取api请求url
             var url = GetAccessApiUrl("batchget", ApiName, "https://api.weixin.qq.com");
@@ -141,7 +140,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
                 count = count,
                 status_list = statusList
             };
-            var result = Post<ApiResult>(url, data);
+            var result = Post<GetBatchCardListResult>(url, data);
             return result;
         }
 
@@ -150,7 +149,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
         /// 开发者可以调用该接口查询某个card_id的创建信息、审核状态以及库存数量。
         /// </summary>
         /// <returns></returns>
-        public ApiResult GetCardDetail(string card_id)
+        public CardDetailResult GetCardDetail(string card_id)
         {
             //获取api请求url
             var url = GetAccessApiUrl("get", ApiName, "https://api.weixin.qq.com");
@@ -158,10 +157,9 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             {
                 card_id = card_id
             };
-            var result = Post<ApiResult>(url, data);
+            var result = Post<CardDetailResult>(url, data);
             return result;
-        } 
-        #endregion
+        }
 
         #endregion
 
