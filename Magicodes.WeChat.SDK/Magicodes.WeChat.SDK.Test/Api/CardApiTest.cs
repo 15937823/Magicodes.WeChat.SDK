@@ -14,6 +14,7 @@
 // ======================================================================
 
 using Magicodes.WeChat.SDK.Apis.Card;
+using Magicodes.WeChat.SDK.Apis.Card.Request;
 using Magicodes.WeChat.SDK.Apis.CustomerService;
 using Magicodes.WeChat.SDK.Apis.POI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -243,6 +244,146 @@ namespace Magicodes.WeChat.SDK.Test.Api
 
             }
 
+        }
+
+        [TestMethod()]
+        public void AddMemberCard()
+        {
+            using (var fs = GetInputFile("qrcode.jpg"))
+            {
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                if (!result.IsSuccess())
+                    Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+                CardInfo cardInfo = new MemberCardInfo()
+                {
+                    CardType = CardTypes.MEMBER_CARD,
+                    MemberCard = new MemberCard()
+                    {
+                        BackgroundPicUrl = result.Url,
+                        Baseinfo = new MemberBaseInfo()
+                        {
+                            Logo_url = result.Url,
+                            Brand_name = "Test",
+                            Code_type = CodeTypes.CODE_TYPE_TEXT,
+                            Title = "Test套餐",
+                            Color = "Color010",
+                            Notice = "使用时向服务员出示此券",
+                            Service_phone = "020-88888888",
+                            Description = "不可与其他优惠同享\n如需团购券发票，请在消费时向商户提出\n店内均可使用，仅限堂食",
+                            Date_info = new FixTimeRangeDateInfo()
+                            {
+                                BeginTime = DateTime.Now,
+                                EndTime = DateTime.Now.AddMonths(1),
+                            },
+                            Sku = new Sku()
+                            {
+                                Quantity = 500000
+                            },
+                            GetLimit = 1,
+                            Use_custom_code = false,
+                            Bind_openid = false,
+                            Can_share = true,
+                            Can_give_friend = true,
+                            Location_id_list = new int[] { 123, 12321, 345345 },
+                            Center_title = "顶部居中按钮",
+                            Center_sub_title = "按钮下方的wording",
+                            Center_url = "http://xin-lai.com",
+                            Custom_url_name = "立即使用",
+                            Custom_url = "http://xin-lai.com",
+                            Custom_url_sub_title = "6个汉字tips",
+                            Promotion_url_name = "更多优惠",
+                            Promotion_url = "http://xin-lai.com",
+                            Promotion_url_sub_title = "美团",
+                            Need_push_on_view = false
+                        },
+                        SupplyBonus = false,
+                        Prerogative = "测试会员卡",
+                        AutoActivate = true,
+                        ActivateUrl = "http://www.baidu.com",
+                        CustomCell1 = new CustomCell()
+                        {
+                            Name = "使用入口",
+                            Tips = "立即使用",
+                            Url = "http://www.baidu.com"
+                        },
+                        Discount = 10
+                    }
+
+                };
+                var cardResult = _weChatApi.Add(cardInfo);
+                if (!cardResult.IsSuccess())
+                    Assert.Fail("创建会员卡失败，返回结果如下：" + cardResult.DetailResult + "；Msg:" + cardResult.GetFriendlyMessage());
+            }
+
+        }
+
+        [TestMethod()]
+        public void UpdateMemberCard()
+        {
+            using (var fs = GetInputFile("qrcode.jpg"))
+            {
+                var result = _weChatApi.UploadImage("qrcode.jpg", fs);
+                if (!result.IsSuccess())
+                    Assert.Fail("上传图片失败，返回结果如下：" + result.DetailResult + "；Msg:" + result.GetFriendlyMessage());
+                UpdateCardRequest cardInfo = new UpdateCardRequest()
+                {
+                    CardId = "pl0uwwcE4vUB77uvUdo0G5Ir32Sw",
+                    MemberCard = new MemberCardUpdate()
+                    {
+                        Background_pic_url = result.Url,
+                        UpdateBaseInfo = new UpdateBaseInfo()
+                        {
+                            Logo_url = result.Url,
+                            Color = "Color012",
+                            Notice = "使用时向服务员出示此券",
+                            //Service_phone = "020-88888888",
+                            //Description = "会员卡，到店消费请出示此卡！",
+                            Date_info = new FixTimeRangeDateInfo()
+                            {
+                                BeginTime = DateTime.Now,
+                                EndTime = DateTime.Now.AddMonths(1),
+                            },
+                            GetLimit = 1,
+                            Can_share = true,
+                            Can_give_friend = true,
+                            Center_title = "顶部居中按钮",
+                            Center_sub_title = "按钮下方的wording",
+                            Center_url = "http://xin-lai.com",
+                            Custom_url_name = "立即使用",
+                            Custom_url = "http://xin-lai.com",
+                            Custom_url_sub_title = "6个汉字tips",
+                            Promotion_url_name = "更多优惠",
+                            Promotion_url = "http://xin-lai.com",
+                            Promotion_url_sub_title = "美团",
+                        },
+                        CustomField1 = new CustomField()
+                        {
+                            NameType = NameTypes.FIELD_NAME_TYPE_LEVEL,
+                            Url = "http://www.baidu.com"
+                        },
+                        SupplyBonus = false,
+                        Prerogative = "测试会员卡",
+                        AutoActivate = true,
+                        //ActivateUrl = "http://www.baidu.com",
+                        CustomCell1 = new CustomCell()
+                        {
+                            Name = "使用入口",
+                            Tips = "立即使用",
+                            Url = "http://www.baidu.com"
+                        },
+                        Discount = 10
+                    }
+
+                };
+                var obj = JsonConvert.SerializeObject(cardInfo);
+                Console.Write(obj);
+                var cardResult = _weChatApi.UpdateMemberCard(cardInfo);
+                if (!cardResult.IsSuccess())
+                {
+                    Assert.Fail("修改会员卡失败，返回结果如下：" + cardResult.DetailResult + "；Msg:" + cardResult.GetFriendlyMessage());
+                }
+
+            }
         }
     }
 }
