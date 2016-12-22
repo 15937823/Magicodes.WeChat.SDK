@@ -16,13 +16,15 @@
 using System.Collections.Generic;
 using Magicodes.WeChat.SDK.Apis.Material;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Magicodes.WeChat.SDK.Helper;
+using System.IO;
 
 namespace Magicodes.WeChat.SDK.Test.Api
 {
     [TestClass]
     public class NewsApiTest : ApiTestBase
     {
-        private readonly NewsApi api = WeChatApisContext.Current.NewsApi;
+        private readonly MaterialApi api = WeChatApisContext.Current.MaterialApi;
 
         public NewsApiTest()
         {
@@ -46,9 +48,43 @@ namespace Magicodes.WeChat.SDK.Test.Api
         [TestMethod]
         public void NewsApiTest_Get()
         {
-            var result = api.Get();
+            var type = Apis.Material.Enums.MaterialType.voice;
+            //aa5fe50648fb489a8083cdd203370470.jpg
+            var result = api.Get(type);
+            var tempResult = (OtherMaterialResult)result;
+            var wr = new WebRequestHelper();
             if (!result.IsSuccess())
                 Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
+
+        }
+
+        [TestMethod]
+        public void NewsGet()
+        {
+            //string id = "8jBK8ujsrMrVlS1rn-SMirVwC9oIk-QbSbxxkORbK0s";
+            //string id = "8jBK8ujsrMrVlS1rn-SMior82fEjXCJiq0IBK0GHOxo";
+            string id = "8jBK8ujsrMrVlS1rn-SMiiiOYzlHCixOPV1tW2knPIw";
+            var stream = api.GetOtherMaterialById(id);
+            //if (!result.IsSuccess())
+            //    Assert.Fail("获取多图文信息失败，返回结果如下：" + result.DetailResult);
+            //else
+            //{
+            //    WebRequestHelper wr = new WebRequestHelper();
+            //    var stream = wr.GetResponseImage(result.DownUrl);
+
+
+            //}
+            File.WriteAllBytes("E://Test.mp3", stream);
+            //using (var filestream = new File)
+            //{
+            //    //byte[] arr = new byte[1024];
+            //    //int size = stream.Read(arr, 0, arr.Length);
+            //    //while (size > 0)
+            //    //{
+            //    //    filestream.Write(arr, 0, size);
+            //    //    size = stream.Read(arr, 0, arr.Length);
+            //    //}
+            //}
         }
 
 

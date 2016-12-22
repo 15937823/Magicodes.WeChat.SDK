@@ -45,7 +45,7 @@ namespace Magicodes.WeChat.SDK.Apis.Card
             if ((type != null) && (type.Count > 0))
             {
                 var typeValue = type.Value.ToString();
-                var cardType = (CardTypes)Enum.Parse(typeof(CardTypes), typeValue);
+                var cardType = (CardTypes)(Enum.Parse(typeof(CardTypes), typeValue));
                 switch (cardType)
                 {
                     case CardTypes.GROUPON:
@@ -62,6 +62,9 @@ namespace Magicodes.WeChat.SDK.Apis.Card
                         break;
                     case CardTypes.GENERAL_COUPON:
                         target = new GeneralCoupon();
+                        break;
+                    case CardTypes.MEMBER_CARD:
+                        target = new MemberCardInfo();
                         break;
                     default:
                         break;

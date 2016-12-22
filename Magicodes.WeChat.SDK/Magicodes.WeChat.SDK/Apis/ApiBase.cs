@@ -19,6 +19,7 @@ using Magicodes.Logger;
 using Magicodes.WeChat.SDK.Helper;
 using Newtonsoft.Json;
 using System.IO;
+using System.Net;
 
 namespace Magicodes.WeChat.SDK.Apis
 {
@@ -126,6 +127,18 @@ namespace Magicodes.WeChat.SDK.Apis
             if (result != null)
                 result.DetailResult = resultStr;
             RefreshAccessTokenWhenTimeOut(result);
+            return result;
+        }
+        /// <summary>
+        /// 获取响应Byte[]
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        protected byte[] HttpBytesPost(string url,object obj)
+        {
+            var wr = new WeChatApiWebRequestHelper();
+            var result = wr.HttpBytesPost(url, JsonConvert.SerializeObject(obj));
             return result;
         }
 
